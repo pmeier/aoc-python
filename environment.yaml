@@ -1,0 +1,9 @@
+name: aoc-dev
+channels:
+  - conda-forge
+dependencies:
+  - python>=3.8.*
+  - setuptools
+  - pre-commit
+  - pytest
+  - pyyaml

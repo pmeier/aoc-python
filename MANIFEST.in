@@ -1,0 +1,7 @@
+exclude .flake8
+exclude .gitignore
+exclude .pre-commit-config.yaml
+exclude environment.yaml
+exclude MANIFEST.in
+exclude tests.py
+exclude tests.yaml

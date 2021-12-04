@@ -1,0 +1,10 @@
+[flake8]
+# See link below for available options
+# https://flake8.pycqa.org/en/latest/user/options.html#options-and-their-descriptions
+
+ignore = E203, E501, W503
+max-line-length = 88
+per-file-ignores =
+    __init__.py: F401, F403, F405
+show_source = True
+statistics = True
