@@ -15,5 +15,11 @@ def main(args=None):
 
 
 def parse_args(args):
-    # FIXME: implement actual argument parsing
-    return argparse.Namespace(year=2021, day=5, part=2)
+    parser = argparse.ArgumentParser(
+        prog="aoc", description="Advent of Code solutions in Python"
+    )
+    parser.add_argument("year", type=int)
+    parser.add_argument("day", type=int)
+    parser.add_argument("part", type=int)
+
+    return parser.parse_args(args)
