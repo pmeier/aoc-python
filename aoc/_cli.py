@@ -16,4 +16,4 @@ def main(args=None):
 
 def parse_args(args):
     # FIXME: implement actual argument parsing
-    return argparse.Namespace(year=2021, day=4, part=2)
+    return argparse.Namespace(year=2021, day=5, part=2)
