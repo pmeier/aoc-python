@@ -98,3 +98,12 @@ year2021:
       gcafb gcf dcaebfg ecagb gf abcdeg gaef cafbge fdbac fegbdc | fgae cfgab fg bagce
     part1: 26
     part2: 61229
+  day09:
+    input: |
+      2199943210
+      3987894921
+      9856789892
+      8767896789
+      9899965678
+    part1: 15
+    part2: 1134
