@@ -14,36 +14,34 @@ def parse_lines(solver):
     return wrapper
 
 
-def traverse(graph, *, node="start", path=(), relax_cond=lambda node, path: False):
+def traverse(graph, *, small_cond, node="start", path=()):
     path = path + (node,)
     if node == "end":
         yield path
         return
 
     for connection in graph[node]:
-        if (
-            connection.isupper()
-            or connection not in path
-            or relax_cond(connection, path)
-        ):
+        if connection.isupper() or small_cond(connection, path):
             yield from traverse(
-                graph, node=connection, path=path, relax_cond=relax_cond
+                graph, small_cond=small_cond, node=connection, path=path
             )
 
 
 @parse_lines
 def part1(graph):
-    return len(list(traverse(graph)))
+    return len(list(traverse(graph, small_cond=lambda node, path: node not in path)))
 
 
 @parse_lines
 def part2(graph):
-    def relax_cond(node, path):
+    def small_cond(node, path):
+        if node not in path:
+            return True
+
         if node == "start":
             return False
 
-        return (
-            Counter([node for node in path if node.islower()]).most_common(1)[0][1] == 1
-        )
+        count = Counter([node for node in path if node.islower()])
+        return count.most_common(1)[0][1] == 1
 
-    return len(list(traverse(graph, relax_cond=relax_cond)))
+    return len(list(traverse(graph, small_cond=small_cond)))
