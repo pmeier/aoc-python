@@ -11,9 +11,6 @@ class Octopus:
         self.energy += 1
         return self.energy == 10
 
-    def __hash__(self):
-        return hash(self.idx)
-
 
 def parse_lines(solver):
     def wrapper(lines):
@@ -44,47 +41,39 @@ def get_neighbours(octopi, idx):
     ]
 
 
+def get_flashing(octopi):
+    flashing = [octopus for octopus in itertools.chain(*octopi) if octopus.energize()]
+    for octopus in flashing:
+        flashing.extend(
+            neighbour
+            for neighbour in get_neighbours(octopi, octopus.idx)
+            if neighbour.energize()
+        )
+
+    for octopus in flashing:
+        octopus.energy = 0
+
+    return flashing
+
+
 @parse_lines
 def part1(octopi):
     num_flashes = 0
     for _ in range(100):
-        flashing = [
-            octopus for octopus in itertools.chain(*octopi) if octopus.energize()
-        ]
-        for octopus in flashing:
-            flashing.extend(
-                neighbour
-                for neighbour in get_neighbours(octopi, octopus.idx)
-                if neighbour.energize()
-            )
-
-        num_flashes += len(flashing)
-        for octopus in flashing:
-            octopus.energy = 0
+        num_flashes += len(get_flashing(octopi))
 
     return num_flashes
 
 
 @parse_lines
 def part2(octopi):
+    num_octopi = len(octopi) * len(octopi[0])
     step = 0
     while True:
-        flashing = [
-            octopus for octopus in itertools.chain(*octopi) if octopus.energize()
-        ]
-        for octopus in flashing:
-            flashing.extend(
-                neighbour
-                for neighbour in get_neighbours(octopi, octopus.idx)
-                if neighbour.energize()
-            )
-
+        flashing = get_flashing(octopi)
         step += 1
 
-        if len(flashing) == 100:
+        if len(flashing) == num_octopi:
             break
-
-        for octopus in flashing:
-            octopus.energy = 0
 
     return step
