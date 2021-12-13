@@ -16,6 +16,8 @@ def load_test_configs(*, path=pathlib.Path(__file__).parent / "tests.yaml"):
             day = int(day_id.replace("day", ""))
             input = config.pop("input").strip().splitlines()
             for part_id, expected in config.items():
+                if isinstance(expected, str):
+                    expected = expected.strip()
                 part = int(part_id.replace("part", ""))
                 params.append(
                     pytest.param(
